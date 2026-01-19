@@ -1,29 +1,33 @@
 name: Standard CI
 
-# Triger
+# Trigger
 on: push
 
 jobs:
-  build-test:
-    name: Build test and deploy 
-    runs-on: ubuntu@latest
+    build-test:
+        name: Build Test and Deploy
+        runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout latest code
-      uses: actions/checkout@v4
+        steps:
+            - name: Checkout Latest code
+              uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with: 
-        node-versions: 18
+            - name: Setup Nodejs
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 18
+                  cache: 'npm'
+                  
+            - name: Install dependencies
+              run: npm i
+            - name: Run lint
+              run: npm run lint
 
-    - name: Run lint
-      run: npm run lint
+            - name: Run build
+              run: npm run build
 
-    - name: Run tests
-      run: npm run test
-
-    - name: Run deploy
-      run: npm run deploy
-        
-
+            - name: Run test
+              run: npm run test
+            
+            - name: Run deploy
+              run: npm run deploy
