@@ -1,0 +1,27 @@
+name: Standard CI
+
+# Triger
+on: push
+
+jobs:
+  build-test:
+    name: Build test and deploy 
+    runs-on: ubuntu@latest
+
+    steps:
+    - name: Checkout latest code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+
+    - name: Run lint
+      run: npm run lint
+
+    - name: Run tests
+      run: npm run test
+
+    - name: Run deploy
+      run: npm run deploy
+        
+
